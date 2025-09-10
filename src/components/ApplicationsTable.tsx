@@ -140,8 +140,8 @@ export const ApplicationsTable: React.FC = () => {
   };
 
   return (
-    <section className="flex w-[1340px] flex-col items-start border shadow-[0_1px_3px_0_rgba(16,24,40,0.10),0_1px_2px_0_rgba(16,24,40,0.06)] absolute h-[612px] bg-white rounded-lg border-solid border-[#EAECF0] left-[50px] top-[204px] max-md:static max-md:w-full max-md:overflow-x-auto max-sm:w-[calc(100%_-_32px)] max-sm:mx-4 max-sm:my-0">
-      <div className="flex items-start self-stretch relative bg-white max-md:min-w-[800px] max-sm:min-w-[600px]">
+    <section className="w-full flex flex-col items-stretch border rounded-lg bg-white shadow-sm overflow-hidden">
+      <div className="flex items-start self-stretch bg-white overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-50">

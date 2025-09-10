@@ -8,9 +8,9 @@ interface MetricCardProps {
 
 export const MetricCard: React.FC<MetricCardProps> = ({ number, title, subtitle }) => {
   return (
-    <div className="flex flex-col items-start flex-[1_0_0] border shadow-[0_1px_3px_0_rgba(16,24,40,0.10),0_1px_2px_0_rgba(16,24,40,0.06)] relative bg-white rounded-lg border-solid border-[#EAECF0]">
-      <div className="flex flex-col items-start gap-2 self-stretch relative p-6 max-md:min-w-[800px] max-sm:min-w-[600px]">
-        <div className="flex items-center gap-4 self-stretch relative">
+    <div className="flex flex-col items-start flex-1 border shadow-sm bg-white rounded-lg">
+      <div className="flex flex-col items-start gap-2 w-full p-6">
+        <div className="flex items-center gap-4 w-full">
           <div className="flex-[1_0_0] text-[#101828] text-[28px] font-semibold leading-[42px] tracking-[-0.56px] relative">
             <div className="font-bold text-[28px] text-[rgba(16,24,40,1)]">
               {number}

@@ -10,7 +10,7 @@ export const FilterButtons: React.FC = () => {
   ];
 
   return (
-    <div className="inline-flex items-center gap-3 absolute w-[576px] h-10 left-[814px] top-5 max-md:static max-md:w-full max-md:flex-wrap max-md:gap-2 max-md:mb-5 max-sm:flex-col max-sm:items-stretch max-sm:px-4 max-sm:py-0">
+    <div className="flex flex-wrap items-center gap-3 justify-end mb-6">
       {filterOptions.map((option) => (
         <button
           key={option.id}
