@@ -1,13 +1,55 @@
 import React from 'react';
-import { Calendar, ChevronDown, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChevronLeft, ChevronRight, Calendar, ChevronDown, X } from "lucide-react";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+
+// Sample data for the charts
+const cashFlowData = [
+  { month: "Jan", inflow: 24000, outflow: 18000, netIncome: 6000 },
+  { month: "Feb", inflow: 26000, outflow: 19500, netIncome: 6500 },
+  { month: "Mar", inflow: 28000, outflow: 21000, netIncome: 7000 },
+  { month: "Apr", inflow: 25500, outflow: 18800, netIncome: 6700 },
+  { month: "May", inflow: 24500, outflow: 18200, netIncome: 6300 },
+  { month: "Jun", inflow: 27000, outflow: 20500, netIncome: 6500 },
+  { month: "Jul", inflow: 29000, outflow: 22000, netIncome: 7000 },
+  { month: "Aug", inflow: 26500, outflow: 19800, netIncome: 6700 },
+  { month: "Sep", inflow: 25000, outflow: 19000, netIncome: 6000 },
+  { month: "Oct", inflow: 27500, outflow: 21500, netIncome: 6000 },
+  { month: "Nov", inflow: 28500, outflow: 22000, netIncome: 6500 },
+  { month: "Dec", inflow: 30000, outflow: 23000, netIncome: 7000 },
+];
+
+const categoryData = [
+  { name: "Salary", value: 65, color: "#f59e0b" },
+  { name: "Investments", value: 20, color: "#10b981" },
+  { name: "Business Income", value: 10, color: "#8b5cf6" },
+  { name: "Other", value: 5, color: "#f97316" },
+];
+
+const chartConfig = {
+  inflow: {
+    label: "Inflow",
+    color: "#10b981",
+  },
+  outflow: {
+    label: "Outflow", 
+    color: "#ef4444",
+  },
+  netIncome: {
+    label: "Est. Net Income",
+    color: "#f59e0b",
+  },
+};
 
 export const CashFlowChart: React.FC = () => {
   const chartData = {
     averageDailyInflow: '$12,000',
     averageDailyOutflow: '$12,000',
-    totalInflow: '$12,000',
-    totalOutflow: '$12,000'
+    totalInflow: '$324,500',
+    totalOutflow: '$244,200'
   };
 
   return (
@@ -47,34 +89,53 @@ export const CashFlowChart: React.FC = () => {
             </div>
           </div>
 
-          {/* Chart Placeholder */}
-          <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
-            <div className="text-center space-y-2">
-              <div className="grid grid-cols-12 gap-2 h-32">
-                {/* Mock chart bars */}
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="space-y-1">
-                    <div className="bg-yellow-400 h-16 w-full rounded-sm opacity-80"></div>
-                    <div className="bg-green-500 h-8 w-full rounded-sm opacity-80"></div>
-                    <div className="bg-red-500 h-4 w-full rounded-sm opacity-80"></div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground mt-4">
-                <span>Jan</span>
-                <span>Feb</span>
-                <span>Mar</span>
-                <span>Apr</span>
-                <span>May</span>
-                <span>Jun</span>
-                <span>Jul</span>
-                <span>Aug</span>
-                <span>Sep</span>
-                <span>Oct</span>
-                <span>Nov</span>
-                <span>Dec</span>
-              </div>
-            </div>
+          {/* Line Chart */}
+          <div className="h-64">
+            <ChartContainer config={chartConfig} className="h-full w-full">
+              <LineChart data={cashFlowData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis 
+                  dataKey="month" 
+                  tickLine={false}
+                  axisLine={false}
+                  className="text-xs"
+                />
+                <YAxis 
+                  tickLine={false}
+                  axisLine={false}
+                  className="text-xs"
+                  tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                />
+                <ChartTooltip 
+                  content={<ChartTooltipContent />}
+                  formatter={(value: any) => [`$${value.toLocaleString()}`, ""]}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="inflow" 
+                  stroke="var(--color-inflow)" 
+                  strokeWidth={2}
+                  dot={{ fill: "var(--color-inflow)", strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, stroke: "var(--color-inflow)", strokeWidth: 2 }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="outflow" 
+                  stroke="var(--color-outflow)" 
+                  strokeWidth={2}
+                  dot={{ fill: "var(--color-outflow)", strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, stroke: "var(--color-outflow)", strokeWidth: 2 }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="netIncome" 
+                  stroke="var(--color-netIncome)" 
+                  strokeWidth={2}
+                  dot={{ fill: "var(--color-netIncome)", strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, stroke: "var(--color-netIncome)", strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ChartContainer>
           </div>
 
           {/* Summary Stats */}
@@ -114,67 +175,47 @@ export const CashFlowChart: React.FC = () => {
           
           <div className="relative">
             <div className="w-48 h-48 mx-auto">
-              {/* Donut chart placeholder */}
-              <svg viewBox="0 0 200 200" className="w-full h-full">
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="70"
-                  fill="none"
-                  stroke="#f59e0b"
-                  strokeWidth="30"
-                  strokeDasharray="200 300"
+              <PieChart width={192} height={192}>
+                <Pie
+                  data={categoryData}
+                  cx={96}
+                  cy={96}
+                  innerRadius={50}
+                  outerRadius={80}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {categoryData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <ChartTooltip 
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      const data = payload[0].payload;
+                      return (
+                        <div className="bg-background border border-border rounded-lg p-2 shadow-md">
+                          <p className="font-medium">{data.name}</p>
+                          <p className="text-sm text-muted-foreground">{data.value}%</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
                 />
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="70"
-                  fill="none"
-                  stroke="#10b981"
-                  strokeWidth="30"
-                  strokeDasharray="100 400"
-                  strokeDashoffset="-200"
-                />
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="70"
-                  fill="none"
-                  stroke="#8b5cf6"
-                  strokeWidth="30"
-                  strokeDasharray="50 450"
-                  strokeDashoffset="-300"
-                />
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="70"
-                  fill="none"
-                  stroke="#f97316"
-                  strokeWidth="30"
-                  strokeDasharray="50 450"
-                  strokeDashoffset="-350"
-                />
-              </svg>
+              </PieChart>
             </div>
             
             <div className="mt-4 space-y-2">
-              <div className="flex items-center gap-2 text-sm">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span>Item 1</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span>Item 2</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                <span>Item 3</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                <span>Item 4</span>
-              </div>
+              {categoryData.map((category, index) => (
+                <div key={index} className="flex items-center gap-2 text-sm">
+                  <div 
+                    className="w-3 h-3 rounded-full" 
+                    style={{ backgroundColor: category.color }}
+                  ></div>
+                  <span>{category.name} ({category.value}%)</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
