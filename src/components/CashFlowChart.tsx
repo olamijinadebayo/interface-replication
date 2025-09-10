@@ -70,9 +70,34 @@ export const CashFlowChart: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
-        {/* Chart Area */}
-        <div className="space-y-6">
+      <div className="grid grid-cols-3 gap-8">
+        {/* Metrics Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg font-medium">Cash Flow Metrics</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <div className="text-sm text-muted-foreground">Average Daily Inflow</div>
+              <div className="text-xl font-semibold text-green-600">{chartData.averageDailyInflow}</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-sm text-muted-foreground">Average Daily Outflow</div>
+              <div className="text-xl font-semibold text-red-600">{chartData.averageDailyOutflow}</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-sm text-muted-foreground">Total Inflow</div>
+              <div className="text-xl font-semibold text-green-600">{chartData.totalInflow}</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-sm text-muted-foreground">Total Outflow</div>
+              <div className="text-xl font-semibold text-red-600">{chartData.totalOutflow}</div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Line Chart */}
+        <div className="space-y-4">
           {/* Legend */}
           <div className="flex items-center gap-6 text-sm">
             <div className="flex items-center gap-2">
@@ -89,7 +114,7 @@ export const CashFlowChart: React.FC = () => {
             </div>
           </div>
 
-          {/* Line Chart */}
+          {/* Chart */}
           <div className="h-64">
             <ChartContainer config={chartConfig} className="h-full w-full">
               <LineChart data={cashFlowData}>
@@ -137,29 +162,9 @@ export const CashFlowChart: React.FC = () => {
               </LineChart>
             </ChartContainer>
           </div>
-
-          {/* Summary Stats */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-sm text-muted-foreground">Average Daily Inflow</div>
-              <div className="text-lg font-semibold text-green-600">{chartData.averageDailyInflow}</div>
-            </div>
-            <div>
-              <div className="text-sm text-muted-foreground">Average Daily Outflow</div>
-              <div className="text-lg font-semibold text-red-600">{chartData.averageDailyOutflow}</div>
-            </div>
-            <div>
-              <div className="text-sm text-muted-foreground">Total Inflow</div>
-              <div className="text-lg font-semibold text-green-600">{chartData.totalInflow}</div>
-            </div>
-            <div>
-              <div className="text-sm text-muted-foreground">Total Outflow</div>
-              <div className="text-lg font-semibold text-red-600">{chartData.totalOutflow}</div>
-            </div>
-          </div>
         </div>
 
-        {/* Donut Chart */}
+        {/* Inflow Category Chart */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="font-medium">Inflow Category</span>
