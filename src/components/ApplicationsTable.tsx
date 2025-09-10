@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StatusBadge } from './StatusBadge';
 
 interface Application {
@@ -18,6 +19,7 @@ interface Application {
 export const ApplicationsTable: React.FC = () => {
   const [selectedApplications, setSelectedApplications] = useState<Set<string>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
+  const navigate = useNavigate();
 
   const applications: Application[] = [
     {
@@ -133,6 +135,10 @@ export const ApplicationsTable: React.FC = () => {
     setSelectAll(newSelected.size === applications.length);
   };
 
+  const handleRowClick = (applicationId: string) => {
+    navigate(`/application/LA-2024-${applicationId}`);
+  };
+
   return (
     <section className="flex w-[1340px] flex-col items-start border shadow-[0_1px_3px_0_rgba(16,24,40,0.10),0_1px_2px_0_rgba(16,24,40,0.06)] absolute h-[612px] bg-white rounded-lg border-solid border-[#EAECF0] left-[50px] top-[204px] max-md:static max-md:w-full max-md:overflow-x-auto max-sm:w-[calc(100%_-_32px)] max-sm:mx-4 max-sm:my-0">
       <div className="flex items-start self-stretch relative bg-white max-md:min-w-[800px] max-sm:min-w-[600px]">
@@ -205,13 +211,18 @@ export const ApplicationsTable: React.FC = () => {
           </thead>
           <tbody>
             {applications.map((application, index) => (
-              <tr key={`${application.id}-${index}`} className="border-b-[#EAECF0] border-b border-solid">
+              <tr 
+                key={`${application.id}-${index}`} 
+                className="border-b-[#EAECF0] border-b border-solid hover:bg-gray-50 cursor-pointer"
+                onClick={() => handleRowClick(application.id)}
+              >
                 <td className="h-[72px] px-6 py-4">
                   <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
                       checked={selectedApplications.has(application.id)}
                       onChange={() => handleSelectApplication(application.id)}
+                      onClick={(e) => e.stopPropagation()}
                       className="w-5 h-5 border relative bg-white rounded-md border-solid border-[#D0D5DD]"
                     />
                     <div className="text-[#101828] text-sm font-medium leading-5">
