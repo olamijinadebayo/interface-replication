@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navbar } from '@/components/Navbar';
 import { MetricCard } from '@/components/MetricCard';
 import { FilterButtons } from '@/components/FilterButtons';
 import { ApplicationsTable } from '@/components/ApplicationsTable';
@@ -33,26 +34,31 @@ const Index = () => {
   ];
 
   return (
-    <main className="w-full max-w-[1440px] relative bg-white mx-auto my-0 pt-[72px] pb-0 px-0">
-      <header className="w-[374px] text-slate-950 text-xl font-medium leading-6 absolute h-6 left-[50px] top-7 max-md:static max-md:text-lg max-md:leading-[22px] max-md:mb-5 max-sm:text-base max-sm:leading-5 max-sm:px-4 max-sm:py-0">
-        <h1 className="font-normal text-xl text-slate-950">Dashboard</h1>
-      </header>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      <main className="w-full max-w-[1440px] mx-auto pt-8 pb-0 px-4 sm:px-6 lg:px-8">
+        <header className="mb-8">
+          <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
+          <p className="text-muted-foreground mt-1">Monitor your loan applications and performance metrics</p>
+        </header>
 
-      <FilterButtons />
+        <FilterButtons />
 
-      <section className="flex w-[1340px] items-center gap-[11px] absolute h-24 left-[50px] top-20 max-md:static max-md:flex-col max-md:w-full max-md:gap-4 max-md:mb-5 max-sm:gap-3 max-sm:px-4 max-sm:py-0">
-        {metrics.map((metric, index) => (
-          <MetricCard
-            key={index}
-            number={metric.number}
-            title={metric.title}
-            subtitle={metric.subtitle}
-          />
-        ))}
-      </section>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+          {metrics.map((metric, index) => (
+            <MetricCard
+              key={index}
+              number={metric.number}
+              title={metric.title}
+              subtitle={metric.subtitle}
+            />
+          ))}
+        </section>
 
-      <ApplicationsTable />
-    </main>
+        <ApplicationsTable />
+      </main>
+    </div>
   );
 };
 
