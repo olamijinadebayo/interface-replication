@@ -28,9 +28,9 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">LA</span>
+                <span className="text-primary-foreground font-bold text-sm">C</span>
               </div>
-              <span className="font-semibold text-lg">LoanAnalytics</span>
+              <span className="font-semibold text-lg">Caelo</span>
             </Link>
             
             {/* Main Navigation */}
@@ -41,24 +41,16 @@ export const Navbar: React.FC = () => {
                   size="sm"
                   className="gap-2"
                 >
-                  <Home className="w-4 h-4" />
                   Dashboard
                 </Button>
               </Link>
               
               <Button variant="ghost" size="sm" className="gap-2">
-                <FileText className="w-4 h-4" />
-                Applications
+                Borrowers
               </Button>
               
               <Button variant="ghost" size="sm" className="gap-2">
-                <BarChart3 className="w-4 h-4" />
-                Analytics
-              </Button>
-              
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Users className="w-4 h-4" />
-                Customers
+                Portfolio
               </Button>
             </div>
           </div>
